@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: pixops-postgres
+    environment:
+      POSTGRES_DB: pixops
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: pixops-redis
+    ports:
+      - "6379:6379"
+
+  api:
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
+    container_name: pixops-api
+    env_file:
+      - ./services/api/.env.example
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: pixops-web
+    env_file:
+      - ./apps/web/.env.example
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:

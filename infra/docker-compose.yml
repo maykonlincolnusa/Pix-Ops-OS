@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: pixops
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  api:
+    build:
+      context: ../services/api
+      dockerfile: Dockerfile
+    env_file:
+      - ../services/api/.env.example
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+
+  web:
+    build:
+      context: ../apps/web
+      dockerfile: Dockerfile
+    env_file:
+      - ../apps/web/.env.example
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
