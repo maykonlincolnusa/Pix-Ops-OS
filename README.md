@@ -1,43 +1,127 @@
-# PixOps OS
+<div align="center">
+
+<br/>
+
+```
+██████╗ ██╗██╗  ██╗ ██████╗ ██████╗ ███████╗     ██████╗ ███████╗
+██╔══██╗██║╚██╗██╔╝██╔═══██╗██╔══██╗██╔════╝    ██╔═══██╗██╔════╝
+██████╔╝██║ ╚███╔╝ ██║   ██║██████╔╝███████╗    ██║   ██║███████╗
+██╔═══╝ ██║ ██╔██╗ ██║   ██║██╔═══╝ ╚════██║    ██║   ██║╚════██║
+██║     ██║██╔╝ ██╗╚██████╔╝██║     ███████║    ╚██████╔╝███████║
+╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚══════╝     ╚═════╝ ╚══════╝
+```
 
 **Real-Time Payment Operations, Reconciliation & Anti-Fraud Platform**
 
-PixOps OS is a real-time payment operations platform for Brazilian businesses, connecting Pix, banks, card machines, PSPs and acquirers into a unified event-driven ledger for reconciliation, fraud detection and financial intelligence.
+*No validated event. No paid sale. No exceptions.*
 
-Em portugues: PixOps OS e um sistema operacional de pagamentos em tempo real para empresas brasileiras, conectando Pix, bancos, maquininhas, PSPs e adquirentes em um ledger orientado a eventos para conciliacao, antifraude e inteligencia financeira.
+<br/>
 
-## Languages
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Next.js](https://img.shields.io/badge/Next.js-14-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?style=flat-square&logo=postgresql&logoColor=white)](https://postgresql.org)
+[![Redis](https://img.shields.io/badge/Redis-7-DC382D?style=flat-square&logo=redis&logoColor=white)](https://redis.io)
+[![LangGraph](https://img.shields.io/badge/LangGraph-Agentic-1C3C3C?style=flat-square&logo=langchain&logoColor=white)](https://langchain-ai.github.io/langgraph)
+[![License](https://img.shields.io/badge/License-MIT-6366F1?style=flat-square)](LICENSE)
 
-- [Portugues (Brasil)](README.pt-BR.md)
-- [English](README.en.md)
-- [Espanol](README.es.md)
-- [Francais](README.fr.md)
+<br/>
 
-## Problem
+[**Português (Brasil)**](README.pt-BR.md) · [**English**](README.en.md) · [**Español**](README.es.md) · [**Français**](README.fr.md)
 
-Brazilian businesses often receive payments through fragmented channels: Pix, QR Code, copia e cola, card terminals, online card payments, payment links, boletos, bank transfers, PSPs, gateways and acquirers. Operational teams still depend on screenshots, manual checks and disconnected bank/acquirer portals.
+<br/>
 
-PixOps OS addresses this by making every important financial event traceable, auditable and reconcilable before a sale is treated as paid.
+</div>
 
-## Core Principle
+---
 
-- Sem evento validado, sem venda liberada.
-- Sem reconciliacao, sem status `paid`.
-- Sem ledger, sem confirmacao final.
-- Sem trace, sem decisao de agente.
+## The Problem
+
+Brazilian businesses receive payments through fragmented, disconnected channels:
+
+> Pix · QR Code · Copia e Cola · Maquininhas · Links de Pagamento · Boletos · TEDs · PSPs · Gateways · Adquirentes
+
+**Operational teams still depend on screenshots, manual checks and disconnected portals.**
+
+The result: payment confirmation without validation. Sales released before money actually arrives. Reconciliation done days later — when the damage is already done.
+
+PixOps OS was built to eliminate this gap.
+
+---
+
+## Core Principles
+
+Every design decision in PixOps OS flows from four non-negotiable rules:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│   Sem evento validado  →  sem venda liberada.                   │
+│   Sem reconciliação    →  sem status paid.                      │
+│   Sem ledger           →  sem confirmação final.                │
+│   Sem trace            →  sem decisão de agente.                │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+Every payment event is **traceable**, **auditable** and **reconcilable** before a sale changes state.
+
+---
 
 ## MVP Capabilities
 
-- Multi-tenant setup for tenants, companies, stores, operators and cash registers.
-- Mocked dynamic Pix charge with `txid`, QR Code payload and copia e cola.
-- Webhook receiver with raw payload storage, signature validation and idempotency.
-- Append-only Event Store with hash chain.
-- Reconciliation Engine for expected sale vs received payment.
-- Double-entry ledger for matched payments.
-- Fraud alerts for mismatches, orphan payments, invalid webhooks and manual release attempts.
-- LangGraph/LangChain agentic layer for analysis, routing, timeout detection, notification and manual review.
-- Notification outbox and manual review cases.
-- Dashboard, event monitor, ledger and fraud center.
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Capability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Multi-Tenancy</strong></td>
+<td>Tenants, companies, stores, operators and cash registers with full isolation</td>
+</tr>
+<tr>
+<td><strong>Pix Charges</strong></td>
+<td>Mocked dynamic Pix charge with <code>txid</code>, QR Code payload and copia e cola</td>
+</tr>
+<tr>
+<td><strong>Webhook Engine</strong></td>
+<td>Raw payload storage, signature validation and idempotency guarantees</td>
+</tr>
+<tr>
+<td><strong>Event Store</strong></td>
+<td>Append-only log with tamper-evident hash chain — every event is immutable</td>
+</tr>
+<tr>
+<td><strong>Reconciliation Engine</strong></td>
+<td>Expected sale vs. received payment — automated matching with mismatch detection</td>
+</tr>
+<tr>
+<td><strong>Double-Entry Ledger</strong></td>
+<td>Accounting-grade ledger entries for every matched payment</td>
+</tr>
+<tr>
+<td><strong>Fraud Alerts</strong></td>
+<td>Mismatches, orphan payments, invalid webhooks, manual release attempts</td>
+</tr>
+<tr>
+<td><strong>Agentic Layer</strong></td>
+<td>LangGraph/LangChain agents for analysis, routing, timeout detection and notifications</td>
+</tr>
+<tr>
+<td><strong>Manual Review</strong></td>
+<td>Structured cases for human-in-the-loop decisions on flagged events</td>
+</tr>
+<tr>
+<td><strong>Dashboard</strong></td>
+<td>Event monitor, ledger view, fraud center and operational overview</td>
+</tr>
+</tbody>
+</table>
+
+---
 
 ## Architecture
 
@@ -58,85 +142,157 @@ flowchart TB
   API --> Redis[(Redis)]
 ```
 
+Every payment enters the system as an immutable event. Agents validate, reconcile and route — no human manual intervention required for standard flows.
+
+---
+
 ## Stack
 
-- Frontend: Next.js, TypeScript, TailwindCSS, PWA-ready.
-- Backend: FastAPI, SQLAlchemy 2.x, Alembic, Pydantic.
-- Data: PostgreSQL, Redis.
-- Events: append-only `event_store` with tamper-evident hash chain.
-- Agents: LangGraph, LangChain, LangSmith-ready tracing.
-- Observability: OpenTelemetry-ready, Prometheus/Grafana/Loki/Tempo-ready docs.
+| Layer | Technology |
+|---|---|
+| **Frontend** | Next.js 14 · TypeScript · TailwindCSS · PWA-ready |
+| **Backend** | FastAPI · SQLAlchemy 2.x · Alembic · Pydantic v2 |
+| **Database** | PostgreSQL 16 · Redis 7 |
+| **Event Store** | Append-only table · tamper-evident hash chain |
+| **Agents** | LangGraph · LangChain · LangSmith-ready tracing |
+| **Observability** | OpenTelemetry · Prometheus · Grafana · Loki · Tempo |
 
-## Run Locally
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Docker & Docker Compose
+- `.env` configured from `services/api/.env.example`
+
+### Run Locally
 
 ```bash
+git clone https://github.com/your-org/pixops-os.git
+cd pixops-os
+cp services/api/.env.example services/api/.env
+# Configure your variables
 docker compose up --build
 ```
 
-- Web: `http://localhost:3000`
-- API: `http://localhost:8000`
-- Swagger/OpenAPI: `http://localhost:8000/docs`
+| Service | URL |
+|---|---|
+| Web App | `http://localhost:3000` |
+| API | `http://localhost:8000` |
+| Swagger / OpenAPI | `http://localhost:8000/docs` |
 
-## Environment
+---
 
-Backend environment template: `services/api/.env.example`
+## Environment Variables
 
-Important variables:
+Configure `services/api/.env` before starting:
 
-- `DATABASE_URL`
-- `REDIS_URL`
-- `JWT_SECRET_KEY`
-- `MASTER_API_KEY`
-- `WEBHOOK_ALLOWED_IPS`
-- `LANGCHAIN_TRACING_V2`
-- `LANGCHAIN_API_KEY`
-- `LANGCHAIN_PROJECT`
-- `AGENT_TIMEOUT_MINUTES`
+```env
+# Database
+DATABASE_URL=postgresql+asyncpg://user:pass@db:5432/pixops
+REDIS_URL=redis://redis:6379/0
+
+# Security
+JWT_SECRET_KEY=your-secret-key
+MASTER_API_KEY=your-master-key
+WEBHOOK_ALLOWED_IPS=127.0.0.1,0.0.0.0
+
+# Agents / Tracing
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_API_KEY=ls__your-key
+LANGCHAIN_PROJECT=pixops-os
+AGENT_TIMEOUT_MINUTES=10
+```
+
+---
 
 ## Demo Flows
 
-See [docs/demo-flows.md](docs/demo-flows.md).
+The full walkthrough covers the complete payment lifecycle — happy path and failure modes.
 
-The intended demo covers:
+> Full details: [`docs/demo-flows.md`](docs/demo-flows.md)
 
-1. Create a sale.
-2. Generate mocked Pix charge.
-3. Simulate approved webhook.
-4. See sale become paid after verified event, reconciliation and ledger.
-5. Simulate amount mismatch.
-6. See fraud alert and manual review.
-7. Run timeout watchdog.
-8. See blocked sale, notification and manual review case.
+```
+1  →  Create a sale
+2  →  Generate a mocked Pix charge (txid + QR Code)
+3  →  Simulate approved webhook from provider
+4  →  Watch the sale become paid after event validation, reconciliation and ledger entry
+──
+5  →  Simulate an amount mismatch
+6  →  Observe fraud alert + automatic manual review case
+──
+7  →  Run timeout watchdog agent
+8  →  Observe blocked sale, outbound notification and review case
+```
+
+---
 
 ## Documentation
 
-- [Architecture](docs/architecture.md)
-- [Architecture Audit](docs/architecture-audit.md)
-- [Agentic Architecture](docs/agentic-architecture.md)
-- [Multi-cloud Architecture](docs/multi-cloud-architecture.md)
-- [Event Catalog](docs/event-catalog.md)
-- [Database Model](docs/database-model.md)
-- [Reconciliation Engine](docs/reconciliation-engine.md)
-- [Provider Adapters](docs/provider-adapters.md)
-- [Security](docs/security.md)
-- [Observability](docs/observability.md)
-- [Roadmap](docs/roadmap.md)
+| Document | Description |
+|---|---|
+| [Architecture](docs/architecture.md) | System design and component overview |
+| [Architecture Audit](docs/architecture-audit.md) | Trade-offs, risks and decisions |
+| [Agentic Architecture](docs/agentic-architecture.md) | LangGraph agents, nodes and routing logic |
+| [Multi-cloud Architecture](docs/multi-cloud-architecture.md) | AWS / GCP / Azure deployment topology |
+| [Event Catalog](docs/event-catalog.md) | All domain events and their schemas |
+| [Database Model](docs/database-model.md) | Entity-relationship model and schema |
+| [Reconciliation Engine](docs/reconciliation-engine.md) | Matching logic, rules and edge cases |
+| [Provider Adapters](docs/provider-adapters.md) | Integration layer for PSPs, banks and acquirers |
+| [Security](docs/security.md) | Authentication, authorization and threat model |
+| [Observability](docs/observability.md) | Metrics, traces, logs and alerting |
+| [Roadmap](docs/roadmap.md) | Upcoming features and priorities |
 
-## Regulatory Disclaimer
-
-PixOps OS is not a bank, PSP, acquirer, payment institution or direct Pix participant. It is a software layer for payment operations, reconciliation, event tracking, fraud monitoring and financial intelligence. Real production integrations must be performed through authorized banks, PSPs, acquirers, gateways or regulated providers.
-
-O PixOps OS nao e banco, PSP, adquirente, instituicao de pagamento ou participante direto do Pix. Ele e uma camada de software para operacao de pagamentos, conciliacao, rastreamento de eventos, monitoramento antifraude e inteligencia financeira. Integracoes reais em producao devem ser feitas por bancos, PSPs, adquirentes, gateways ou provedores autorizados.
-
-## Anti-fraud Disclaimer
-
-PixOps OS is designed to reduce operational fraud, fake receipt fraud, human error and reconciliation failures. It does not promise to prevent 100% of fraud.
+---
 
 ## Roadmap
 
-- Queue-backed webhook processing with Redis Streams, RabbitMQ, NATS or Kafka/Redpanda.
-- Real provider adapters for authorized Pix/bank/PSP/acquirer integrations.
-- Open Finance consent, payment initiation and account information adapters.
-- Stronger provider credential encryption with KMS/Vault.
-- Prometheus metrics and Grafana dashboards for payment operations.
-- Expanded automated tests for all critical demo flows.
+- [ ] Queue-backed webhook processing — Redis Streams · RabbitMQ · NATS · Kafka / Redpanda
+- [ ] Real provider adapters for authorized Pix, bank, PSP and acquirer integrations
+- [ ] Open Finance — consent flows, payment initiation and account information adapters
+- [ ] Provider credential encryption via KMS / Vault
+- [ ] Prometheus metrics and Grafana dashboards for payment operations
+- [ ] Expanded automated test coverage for all critical demo flows
+
+---
+
+## Disclaimers
+
+<details>
+<summary><strong>Regulatory Disclaimer</strong></summary>
+
+<br/>
+
+PixOps OS is **not** a bank, PSP, acquirer, payment institution or direct Pix participant.
+
+It is a software layer for payment operations, reconciliation, event tracking, fraud monitoring and financial intelligence. Real production integrations must be performed through authorized banks, PSPs, acquirers, gateways or regulated providers.
+
+---
+
+*PixOps OS não é banco, PSP, adquirente, instituição de pagamento ou participante direto do Pix. Ele é uma camada de software para operação de pagamentos, conciliação, rastreamento de eventos, monitoramento antifraude e inteligência financeira. Integrações reais em produção devem ser feitas por bancos, PSPs, adquirentes, gateways ou provedores autorizados.*
+
+</details>
+
+<details>
+<summary><strong>Anti-Fraud Disclaimer</strong></summary>
+
+<br/>
+
+PixOps OS is designed to reduce operational fraud, fake receipt fraud, human error and reconciliation failures.
+
+It does not promise to prevent 100% of fraud.
+
+</details>
+
+---
+
+<div align="center">
+
+<br/>
+
+*Built for Brazilian payment operations teams who can't afford to guess.*
+
+<br/>
+
+</div>
